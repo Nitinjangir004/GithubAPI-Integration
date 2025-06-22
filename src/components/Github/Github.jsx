@@ -15,12 +15,14 @@ export function Github() {
         setLoading(true)
         try{
         const respo = await axios.get(`https://api.github.com/users/${username}`)
+        const repoRes = await axios.get(`https://api.github.com/users/${username}/repos`)
         setUserData(respo.data)
-        setRepos([]);
-        setError('')
+        setRepos(repoRes.data);
+        console.log("Repos:", repos);
         console.log(username)
         }catch (error) {
           console.error("Error fetching user data:", error);
+          setError(error)
         } finally {
         setLoading(false);
         }
